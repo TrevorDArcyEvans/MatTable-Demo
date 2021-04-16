@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Faker.Net" Version="1.5.136" />
     <PackageReference Include="MatBlazor" Version="2.9.0-develop-042" />
   </ItemGroup>
 

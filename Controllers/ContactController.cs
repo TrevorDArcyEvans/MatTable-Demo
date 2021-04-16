@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MatTableDemo.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,12 +9,20 @@ namespace MatTableDemo.Controllers
   [Produces("application/json")]
   public class ContactController : ControllerBase
   {
-    private readonly List<Contact> _data = new List<Contact>
+    private readonly List<Contact> _data = new List<Contact>();
+
+    public ContactController()
     {
-      new Contact{ FirstName = "Ken", LastName = "Gray"},
-      new Contact{ FirstName = "Steve", LastName = "Grace"},
-      new Contact{ FirstName = "Robin", LastName = "Hood"}
-    };
+      foreach (var i in Enumerable.Range(0, 100))
+      {
+        _data.Add(
+          new Contact
+          {
+            FirstName = Faker.Name.First(),
+            LastName = Faker.Name.Last()
+          });
+      }
+    }
 
     [HttpGet]
     public ActionResult<IEnumerable<Contact>> GetAll()

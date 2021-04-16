@@ -1,42 +1,30 @@
 ﻿@page "/fetchdata"
 
-@using MatTableDemo.Data
-@inject WeatherForecastService ForecastService
+@using MatTableDemo.Models
 
-<h1>Weather forecast</h1>
+<h1>Contacts</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
-
-@if (_forecasts == null)
-{
-  <p>
-    <em>Loading...</em>
-  </p>
-}
-else
-{
-  <MatTable Items="@_forecasts" class="mat-elevation-z5">
-    <MatTableHeader>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
-    </MatTableHeader>
-    <MatTableRow>
-      <td>@context.Date.ToShortDateString()</td>
-      <td>@context.TemperatureC</td>
-      <td>@context.TemperatureF</td>
-      <td>@context.Summary</td>
-    </MatTableRow>
-  </MatTable>
-}
+<MatTable
+  Items="@_contacts"
+  LoadInitialData="true"
+  Striped="true"
+  RequestApiOnlyOnce="true"
+  AllowSelection="true"
+  ApiUrl="https://localhost:5001/api/contact"
+  FilterByColumnName="LastName"
+  DebounceMilliseconds="150"
+  class="mat-elevation-z5">
+  <MatTableHeader>
+    <th>First Name</th>
+    <th>Last Name</th>
+  </MatTableHeader>
+  <MatTableRow>
+    <td>@context.FirstName</td>
+    <td>@context.LastName</td>
+  </MatTableRow>
+</MatTable>
 
 @code {
-  private WeatherForecast[] _forecasts;
-
-  protected override async Task OnInitializedAsync()
-  {
-    _forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-  }
-
+  private Contact[] _contacts;
 }
