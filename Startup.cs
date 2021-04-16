@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace MatTableDemo
 {
@@ -22,13 +24,20 @@ namespace MatTableDemo
     {
       // MatTable needs this
       services.AddScoped<HttpClient>();
-      
+
       // make singleton so contacts are not regenerated on very call
       services.AddSingleton<ContactController>();
 
       services
         .AddMvc(options => options.EnableEndpointRouting = false)
-        .AddControllersAsServices();
+        .AddControllersAsServices()
+        .AddNewtonsoftJson(options =>
+        {
+          // MatTable assumes camel case when deserialising JSON data
+          options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+          options.SerializerSettings.Converters.Add(new StringEnumConverter());
+        });
 
       services.AddRazorPages();
       services.AddServerSideBlazor();

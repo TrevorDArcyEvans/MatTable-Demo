@@ -24,7 +24,7 @@ namespace MatTableDemo.Controllers
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Contact>> GetAll(
+    public ActionResult GetAll(
       [FromQuery] int Page, // Page is 1-based in MatTable
       [FromQuery] int PageSize,
       [FromQuery] string SortBy,
@@ -33,13 +33,21 @@ namespace MatTableDemo.Controllers
     )
     {
       // MatTable uses -1 for everything
-      var pageSize = PageSize == -1 ? int.MaxValue : PageSize;
+      var dataPageSize = PageSize == -1 ? int.MaxValue : PageSize;
 
-      var filteredData =
+      var filtData =
         searchTerm is null ? _data : _data.Where(c => c.LastName.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase));
-      var res = filteredData
-        .Skip((Page - 1) * pageSize)
-        .Take(pageSize);
+      var filtDataList = filtData.ToList();
+      var contacts = filtDataList
+        .Skip((Page - 1) * dataPageSize)
+        .Take(dataPageSize);
+      var res = new
+      {
+        // MatTable assumes camel case when deserialising JSON data
+        contacts = contacts,
+        totalContacts = filtDataList.Count()
+      };
+
       return Ok(res);
     }
   }

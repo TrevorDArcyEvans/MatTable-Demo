@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Faker.Net" Version="1.5.136" />
     <PackageReference Include="MatBlazor" Version="2.9.0-develop-042" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.5" />
   </ItemGroup>
 
 </Project>

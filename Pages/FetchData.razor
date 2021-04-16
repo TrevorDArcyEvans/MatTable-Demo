@@ -5,11 +5,14 @@
 <h1>Contacts</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
+
 <MatTable
   Items="@_contacts"
   ApiUrl="https://localhost:5001/api/contact"
   FilterByColumnName="LastName"
   Descending="true"
+  PagingDataPropertyName="contacts"
+  PagingRecordsCountPropertyName="totalContacts"
   Striped="true"
   AllowSelection="true"
   DebounceMilliseconds="150"
