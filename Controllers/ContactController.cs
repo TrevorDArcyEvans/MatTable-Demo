@@ -15,7 +15,7 @@ namespace MatTableDemo.Controllers
     public ContactController()
     {
       _data =
-        Enumerable.Range(0, 100).Select(_ =>
+        Enumerable.Range(0, 1000).Select(_ =>
           new Contact
           {
             FirstName = Faker.Name.First(),
