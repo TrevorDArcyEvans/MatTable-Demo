@@ -23,7 +23,12 @@ namespace MatTableDemo
     public void ConfigureServices(IServiceCollection services)
     {
       // MatTable needs this
-      services.AddScoped<HttpClient>();
+      // NOTE:  have to disable ssl checking, esp on Linux
+      services.AddScoped(_ => new HttpClient(
+        new HttpClientHandler
+        {
+          ServerCertificateCustomValidationCallback = delegate { return true; }
+        }));
 
       // make singleton so contacts are not regenerated on very call
       services.AddSingleton<ContactController>();
