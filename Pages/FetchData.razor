@@ -1,0 +1,42 @@
+﻿@page "/fetchdata"
+
+@using MatTableDemo.Data
+@inject WeatherForecastService ForecastService
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (_forecasts == null)
+{
+  <p>
+    <em>Loading...</em>
+  </p>
+}
+else
+{
+  <MatTable Items="@_forecasts" class="mat-elevation-z5">
+    <MatTableHeader>
+      <th>Date</th>
+      <th>Temp. (C)</th>
+      <th>Temp. (F)</th>
+      <th>Summary</th>
+    </MatTableHeader>
+    <MatTableRow>
+      <td>@context.Date.ToShortDateString()</td>
+      <td>@context.TemperatureC</td>
+      <td>@context.TemperatureF</td>
+      <td>@context.Summary</td>
+    </MatTableRow>
+  </MatTable>
+}
+
+@code {
+  private WeatherForecast[] _forecasts;
+
+  protected override async Task OnInitializedAsync()
+  {
+    _forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+  }
+
+}
