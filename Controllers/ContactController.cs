@@ -10,18 +10,13 @@ namespace MatTableDemo.Controllers
   [Produces("application/json")]
   public class ContactController : ControllerBase
   {
-    private readonly List<Contact> _data;
-
-    public ContactController()
-    {
-      _data =
+    private readonly List<Contact> _data =
         Enumerable.Range(0, 1000).Select(_ =>
           new Contact
           {
             FirstName = Faker.Name.First(),
             LastName = Faker.Name.Last()
           }).ToList();
-    }
 
     [HttpGet]
     public ActionResult GetAll(
