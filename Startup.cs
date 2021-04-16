@@ -1,5 +1,6 @@
 using System.Net.Http;
 using MatBlazor;
+using MatTableDemo.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,9 @@ namespace MatTableDemo
     {
       // MatTable needs this
       services.AddScoped<HttpClient>();
+      
+      // make singleton so contacts are not regenerated on very call
+      services.AddSingleton<ContactController>();
 
       services
         .AddMvc(options => options.EnableEndpointRouting = false)
