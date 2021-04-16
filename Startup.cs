@@ -23,6 +23,10 @@ namespace MatTableDemo
       // MatTable needs this
       services.AddScoped<HttpClient>();
 
+      services
+        .AddMvc(options => options.EnableEndpointRouting = false)
+        .AddControllersAsServices();
+
       services.AddRazorPages();
       services.AddServerSideBlazor();
       services.AddSingleton<WeatherForecastService>();
@@ -44,6 +48,8 @@ namespace MatTableDemo
       app.UseStaticFiles();
 
       app.UseRouting();
+
+      app.UseMvcWithDefaultRoute();
 
       app.UseEndpoints(endpoints =>
       {
