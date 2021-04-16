@@ -7,12 +7,11 @@
 <p>This component demonstrates fetching data from a service.</p>
 <MatTable
   Items="@_contacts"
-  LoadInitialData="true"
-  Striped="true"
-  RequestApiOnlyOnce="true"
-  AllowSelection="true"
   ApiUrl="https://localhost:5001/api/contact"
   FilterByColumnName="LastName"
+  Descending="true"
+  Striped="true"
+  AllowSelection="true"
   DebounceMilliseconds="150"
   class="mat-elevation-z5">
   <MatTableHeader>

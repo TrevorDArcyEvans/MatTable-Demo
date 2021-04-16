@@ -25,7 +25,13 @@ namespace MatTableDemo.Controllers
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Contact>> GetAll()
+    public ActionResult<IEnumerable<Contact>> GetAll(
+      [FromQuery] int Page,
+      [FromQuery] int PageSize,
+      [FromQuery] string SortBy,
+      [FromQuery] bool Descending,
+      [FromQuery] string searchTerm
+      )
     {
       return _data;
     }
